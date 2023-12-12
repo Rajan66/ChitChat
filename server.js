@@ -12,9 +12,22 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // Run when a client connects
 io.on('connection', socket => {
-    console.log('New WebSocket connection...')
+    // Welcome current user
+    socket.emit('message', 'Welcome to ChitChat!')
 
-    socket.emit('message','Welcome to ChitChat!')
+    //Broadcasts to all when a user connects except the one who connect
+    socket.broadcast.emit('message', 'A user has joined the chat')
+
+    // This runs when client disconnects
+    socket.on('disconnect', () => {
+        // io.emit() all the clients/users
+        io.emit('message', 'A user has left the chat')
+    })
+
+    // Listen for chatmessage
+    socket.on('chatMessage',(msg)=>{
+        io.emit('message',msg)
+    })
 })
 
 const PORT = 3000 || process.env.PORT
