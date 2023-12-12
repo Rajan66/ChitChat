@@ -96,6 +96,7 @@ a {
 	margin-bottom: 15px;
 	background-color: var(--light-color);
 	border-radius: 5px;
+	overflow-wrap: break-word;
 }
 
 .chat-messages .message .meta {
@@ -166,7 +167,7 @@ a {
 	width: 100%;
 }
 
-.join-main select {
+.join-main .inputSelect {
 	font-size: 16px;
 	padding: 5px;
 	height: 40px;
